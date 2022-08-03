@@ -179,17 +179,23 @@ USE GestionVentas;
         ORDER BY APELLIDO1, APELLIDO2, NOMBRE DESC;
 		
         -- Actualización
-		INSERT INTO comercial VALUES(9, 'Génesis','Aveiga', 'Flores','Barcelona', 0.05);
+		INSERT INTO Comercial VALUES(9, 'Génesis','Aveiga', 'Flores','Barcelona', 0.05);
         
 -- 3. Devuelve un listado que solamente muestre los clientes que no han realizado 
 --    ningún pedido.
 
-
+		SELECT Cliente.*
+        FROM Cliente
+        LEFT JOIN Pedido ON idCliente = id_Cliente
+        WHERE idPedido is null;
 
 -- 4. Devuelve un listado que solamente muestre los comerciales que no han realizado 
 --    ningún pedido.
 
-
+		SELECT Comercial.*
+        FROM Comercial
+        LEFT JOIN Pedido ON idComercial = id_Comercial
+        WHERE idPedido is null;
 
 -- 5. Devuelve un listado con los clientes que no han realizado ningún pedido y de 
 --    los comerciales que no han participado en ningún pedido. Ordene el listado 
@@ -197,7 +203,19 @@ USE GestionVentas;
 --    de algún modo los clientes y los comerciales.
 
 
-
+		SELECT 
+			'Cliente' as Type,
+			concat_ws(' ', C.NOMBRE, C.APELLIDO1, C.APELLIDO2) as Nombre
+        FROM Pedido
+        RIGHT JOIN Cliente C ON idCliente = id_Cliente
+        WHERE idPedido is null 
+        UNION
+			SELECT 
+				'Comercial',
+				concat_ws(' ', CM.NOMBRE, CM.APELLIDO1, CM.APELLIDO2) as Nombre
+            FROM Pedido
+            RIGHT JOIN Comercial CM ON idComercial = id_Comercial
+            WHERE idPedido is null;
 
 -- --------------------------------------------------------------------------------
 -- Consultas resumen
@@ -205,23 +223,23 @@ USE GestionVentas;
 
 -- 1. Calcula la cantidad total de todos los pedidos que aparecen en la tabla pedido.
 
-
+		Select	round(sum(Cantidad), 2) as Cantidad_Total from Pedido;
 
 -- 2. Calcula la cantidad media de todos los pedidos que aparecen en la tabla pedido.
 
-
+		Select	round(avg(Cantidad), 2) as Cantidad_Total from Pedido;
 
 -- 3. Calcula el total de comerciales distintos que aparecen en la tabla pedido.
 
-
+		Select count(distinct id_Comercial) as Total_Comerciales from Pedido;
 
 -- 4. Calcula el número total de clientes que aparecen en la tabla cliente.
 
-
+		Select count(idCliente) from Cliente;
 
 -- 5. Calcula cuál es la mayor cantidad que aparece en la tabla pedido.
 
-
+		
 
 -- 6. Calcula cuál es la menor cantidad que aparece en la tabla pedido.
 
