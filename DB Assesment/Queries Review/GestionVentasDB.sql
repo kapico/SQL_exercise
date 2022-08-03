@@ -1,4 +1,4 @@
--- MySQL Workbench Forward Engineering
+-- MySQL GESTION DE VENTAS DB
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
@@ -76,13 +76,22 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+-- -----------------------------------------------------
 -- INSERTS
+-- -----------------------------------------------------
 
 USE GestionVentas;
 
-INSERT INTO cliente VALUES(1, 'Aarón', 'Rivero', 'Gómez', 'Almería', 100); INSERT INTO cliente VALUES(2, 'Adela', 'Salas', 'Díaz', 'Granada', 200); INSERT INTO cliente VALUES(3, 'Adolfo', 'Rubio', 'Flores', 'Sevilla', NULL); INSERT INTO cliente VALUES(4, 'Adrián', 'Suárez', NULL, 'Jaén', 300);
-INSERT INTO cliente VALUES(5, 'Marcos', 'Loyola', 'Méndez', 'Almería', 200); INSERT INTO cliente VALUES(6, 'María', 'Santana', 'Moreno', 'Cádiz', 100); INSERT INTO cliente VALUES(7, 'Pilar', 'Ruiz', NULL, 'Sevilla', 300);
-INSERT INTO cliente VALUES(8, 'Pepe', 'Ruiz', 'Santana', 'Huelva', 200); INSERT INTO cliente VALUES(9, 'Guillermo', 'López', 'Gómez', 'Granada', 225); INSERT INTO cliente VALUES(10, 'Daniel', 'Santana', 'Loyola', 'Sevilla',125);
+INSERT INTO cliente VALUES(1, 'Aarón', 'Rivero', 'Gómez', 'Almería', 100); 
+INSERT INTO cliente VALUES(2, 'Adela', 'Salas', 'Díaz', 'Granada', 200); 
+INSERT INTO cliente VALUES(3, 'Adolfo', 'Rubio', 'Flores', 'Sevilla', NULL); 
+INSERT INTO cliente VALUES(4, 'Adrián', 'Suárez', NULL, 'Jaén', 300);
+INSERT INTO cliente VALUES(5, 'Marcos', 'Loyola', 'Méndez', 'Almería', 200); 
+INSERT INTO cliente VALUES(6, 'María', 'Santana', 'Moreno', 'Cádiz', 100); 
+INSERT INTO cliente VALUES(7, 'Pilar', 'Ruiz', NULL, 'Sevilla', 300);
+INSERT INTO cliente VALUES(8, 'Pepe', 'Ruiz', 'Santana', 'Huelva', 200); 
+INSERT INTO cliente VALUES(9, 'Guillermo', 'López', 'Gómez', 'Granada', 225); 
+INSERT INTO cliente VALUES(10, 'Daniel', 'Santana', 'Loyola', 'Sevilla',125);
 INSERT INTO comercial VALUES(1, 'Daniel', 'Sáez','Vega','Barcelona', 0.15); 
 INSERT INTO comercial VALUES(2, 'Juan', 'Gómez', 'López','Madrid', 0.13); 
 INSERT INTO comercial VALUES(3, 'Diego','Flores', 'Salas','Alicante',0.11); 
