@@ -239,16 +239,17 @@ USE GestionVentas;
 
 -- 5. Calcula cuál es la mayor cantidad que aparece en la tabla pedido.
 
-		
+		Select max(Cantidad) from Pedido;
 
 -- 6. Calcula cuál es la menor cantidad que aparece en la tabla pedido.
 
-
+		Select min(Cantidad) from Pedido;
 
 -- 7. Calcula cuál es el valor máximo de categoría para cada una de las ciudades 
 --    que aparece en la tabla cliente.
 
-
+		Select Ciudad, max(Categoria) as Max_Categoria from Cliente
+        group by Ciudad;
 
 -- 8. Calcula cuál es el máximo valor de los pedidos realizados durante el mismo 
 --    día para cada uno de los clientes. Es decir, el mismo cliente puede haber 
@@ -257,19 +258,39 @@ USE GestionVentas;
 --    un cliente ha realizado un pedido. Muestra el identificador del cliente, nombre, 
 --    apellidos, la fecha y el valor de la cantidad.
 
-
+		Select 
+			idCliente, 
+            concat_ws(' ', Nombre, Apellido1, Apellido2) as Nombre_Cliente, 
+            fecha, 
+            max(Cantidad) as Max_cantidad
+		from Pedido, Cliente 
+        where id_Cliente = idCliente
+        group by idCliente, fecha;
 
 -- 9. Calcula cuál es el máximo valor de los pedidos realizados durante el mismo día 
 --    para cada uno de los clientes, teniendo en cuenta que sólo queremos mostrar 
 --    aquellos pedidos que superen la cantidad de 2000 €.
 
-
+		Select 
+			idCliente, 
+            concat_ws(' ', Nombre, Apellido1, Apellido2) as Nombre_Cliente, 
+            fecha, 
+            max(Cantidad) as Max_cantidad
+		from Pedido, Cliente 
+        where id_Cliente = idCliente and Cantidad > 2000
+        group by idCliente, fecha;
 
 -- 10. Calcula el máximo valor de los pedidos realizados para cada uno de los  
 --     comerciales durante la fecha 2016-08-17. Muestra el identificador del 
 --     comercial, nombre, apellidos y total.
 
-
+		Select 
+			idComercial, 
+            concat_ws(' ', Nombre, Apellido1, Apellido2) as Nombre_Comercial, 
+            max(Cantidad) as Max_cantidad
+		from Pedido, Comercial 
+        where id_Comercial = idComercial and fecha = '2016-08-17'
+        group by idComercial;
 
 -- 11. Devuelve un listado con el identificador de cliente, nombre y apellidos y 
 --     el número total de pedidos que ha realizado cada uno de los clientes. 
@@ -277,13 +298,26 @@ USE GestionVentas;
 --     pedido. Estos clientes también deben aparecer en el listado indicando que 
 --     el número de pedidos realizados es 0.
 
-
+		Select 
+			idCliente, 
+            concat_ws(' ', Nombre, Apellido1, Apellido2) as Nombre_Cliente,
+            count(idPedido) as N_totalPedidos
+            from Pedido
+            Right Join Cliente on id_Cliente = idCliente
+            group by idCliente;
 
 -- 12. Devuelve un listado con el identificador de cliente, nombre y apellidos y 
 --     el número total de pedidos que ha realizado cada uno de clientes durante 
 --     el año 2017.
 
-
+		Select	
+            idCliente, 
+            concat_ws(' ', Nombre, Apellido1, Apellido2) as Nombre_Cliente,
+            count(idPedido) as N_totalPedidos
+            from Pedido
+            Join Cliente on id_Cliente = idCliente
+            where fecha like '2017%'
+            group by idCliente;
  
 -- 13. Devuelve un listado que muestre el identificador de cliente, nombre, primer 
 --     apellido y el valor de la máxima cantidad del pedido realizado por cada uno 
@@ -291,15 +325,29 @@ USE GestionVentas;
 --     realizado ningún pedido indicando que la máxima cantidad de sus pedidos 
 --     realizados es 0. Puede hacer uso de la función IFNULL.
 
-
+		Select
+			idCliente, 
+            concat_ws(' ', Nombre, Apellido1) as Nombre_Cliente, 
+            ifnull(max(Cantidad), 0) as Max_cantidad
+		from Pedido
+		Right Join Cliente on id_Cliente = idCliente
+        group by idCliente;
 
 -- 14. Devuelve cuál ha sido el pedido de máximo valor que se ha realizado cada año.
 
-
+		Select
+			year(fecha),
+			max(Cantidad)
+		from Pedido
+        group by year(fecha);
 
 -- 15. Devuelve el número total de pedidos que se han realizado cada año.
 
-
+		Select
+			year(fecha),
+			count(idPedido)
+		from Pedido
+        group by year(fecha);
 
 -- --------------------------------------------------------------------------------
 -- Subconsultas
@@ -309,7 +357,9 @@ USE GestionVentas;
 -- 1. Devuelve un listado con todos los pedidos que ha realizado Adela Salas Díaz. 
 --      (Sin utilizar INNER JOIN).
 
-
+	Select *
+    from Pedido
+    where 
 
 -- 2. Devuelve el número de pedidos en los que ha participado el comercial Daniel 
 --    Sáez Vega. (Sin utilizar INNER JOIN)
